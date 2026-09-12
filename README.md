@@ -4,6 +4,9 @@
 
 An AI-powered study assistant that helps users interact with their study materials using Retrieval-Augmented Generation (RAG).
 
+## 🖥️ Application Preview
+
+![AI Study Assistant Dashboard](docs/dashboard.png)
 
 
 \## 📌 Overview
