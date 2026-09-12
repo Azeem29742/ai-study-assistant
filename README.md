@@ -507,6 +507,19 @@ The goal of this project is to build a practical full-stack AI application while
 
 \* Document intelligence
 
+## 🔧 Key Technical Highlights
+
+- **Retrieval-Augmented Generation (RAG):** Retrieves relevant information from uploaded study materials before generating answers.
+- **Document Processing:** Supports document upload, text extraction, and intelligent text chunking for knowledge retrieval.
+- **Vector Search:** Generates embeddings and stores document chunks in ChromaDB for semantic similarity search.
+- **AI Generation:** Uses Google Gemini for embedding generation and context-aware answer generation.
+- **FastAPI Backend:** Provides REST APIs for document processing, AI queries, chat history, sessions, and document management.
+- **React Frontend:** Provides an interactive study interface for uploading documents, asking questions, and managing conversations.
+- **Persistent Chat Sessions:** Stores conversations and sessions using SQLite so users can continue previous discussions.
+- **Local Data Storage:** Keeps uploaded documents, vector data, and chat data locally during development.
+- **Environment Security:** API credentials are stored in environment variables and excluded from version control.
+
+
 ## 🚀 Getting Started
 
 Follow the steps below to run the AI Study Assistant locally.
