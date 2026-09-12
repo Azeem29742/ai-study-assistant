@@ -46,3 +46,6 @@ frontend/build/
 # Temporary files
 *.tmp
 *.temp
+
+# Local backup files
+backup/
