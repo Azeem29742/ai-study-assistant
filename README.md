@@ -1,8 +1,14 @@
 \# AI Study Assistant
 
 
-
 An AI-powered study assistant that helps users interact with their study materials using Retrieval-Augmented Generation (RAG).
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Gemini](https://img.shields.io/badge/Google%20Gemini-AI-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-FF6F00)](https://www.trychroma.com/)
+[![RAG](https://img.shields.io/badge/RAG-Retrieval%20Augmented%20Generation-purple)](#)
 
 ## 🖥️ Application Preview
 
