@@ -501,7 +501,205 @@ The goal of this project is to build a practical full-stack AI application while
 
 \* Document intelligence
 
+## 🚀 Getting Started
 
+Follow the steps below to run the AI Study Assistant locally.
+
+### Prerequisites
+
+Make sure the following are installed on your computer:
+
+* Python 3.10+
+* Poetry
+* Node.js 18+
+* npm
+* Git
+* A Google Gemini API key
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Azeem29742/ai-study-assistant.git
+cd ai-study-assistant
+```
+
+### 2. Backend Setup
+
+Open a terminal in the project directory and navigate to the backend:
+
+```bash
+cd backend
+```
+
+Install the Python dependencies using Poetry:
+
+```bash
+poetry install
+```
+
+### 3. Configure the Gemini API Key
+
+Create a `.env` file inside the `backend` directory.
+
+A template is provided in the repository:
+
+```text
+backend/.env.example
+```
+
+Create your `.env` file from the example.
+
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Then open `.env` and replace:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+with your actual Google Gemini API key:
+
+```env
+GEMINI_API_KEY=YOUR_ACTUAL_API_KEY
+```
+
+⚠️ Never upload your `.env` file or API key to GitHub.
+
+### 4. Start the Backend
+
+From the `backend` directory, start the FastAPI server:
+
+```bash
+poetry run uvicorn app.main:app --reload
+```
+
+The backend should be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+FastAPI API documentation is available at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### 5. Frontend Setup
+
+Open a new terminal and navigate to the project:
+
+```bash
+cd ai-study-assistant/frontend
+```
+
+Install the frontend dependencies:
+
+```bash
+npm install
+```
+
+### 6. Start the Frontend
+
+Run:
+
+```bash
+npm run dev
+```
+
+Vite will provide a local URL, usually:
+
+```text
+http://localhost:5173
+```
+
+Open that address in your browser.
+
+### 7. Using the Application
+
+Once both the backend and frontend are running:
+
+1. Open the frontend in your browser.
+2. Upload a study document.
+3. Allow the application to process the document.
+4. Ask questions about the uploaded material.
+5. Create and switch between chat sessions.
+6. Continue previous conversations using the chat history.
+
+### Local Development Architecture
+
+```text
+Browser
+   │
+   ▼
+React + Vite
+   │
+   ▼
+FastAPI Backend
+   │
+   ├── Document Processing
+   │
+   ├── Gemini Embeddings
+   │
+   ├── ChromaDB
+   │
+   └── Gemini LLM
+   │
+   ▼
+AI Response
+   │
+   ▼
+React Frontend
+```
+
+### Troubleshooting
+
+#### Backend does not start
+
+Make sure you are inside the `backend` directory:
+
+```bash
+cd backend
+```
+
+Then run:
+
+```bash
+poetry run uvicorn app.main:app --reload
+```
+
+#### Frontend does not start
+
+Make sure you are inside the `frontend` directory:
+
+```bash
+cd frontend
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Then start the development server:
+
+```bash
+npm run dev
+```
+
+#### Gemini API errors
+
+Check that:
+
+* Your `.env` file exists inside `backend`.
+* `GEMINI_API_KEY` is correctly configured.
+* Your Gemini API key is valid.
+* The API key has not been accidentally exposed publicly.
 
 \## 👨‍💻 Author
 
