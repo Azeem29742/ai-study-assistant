@@ -124,6 +124,8 @@ def get_chat_db():
         )
         connection.commit()
 
+    existing_columns = [row[1] for row in connection.execute("PRAGMA table_info(chat_sessions)").fetchall()]
+
     if "chat_id" not in existing_columns:
         connection.execute(
             """
@@ -1617,6 +1619,8 @@ def delete_chat_session(chat_id: str) -> dict:
         "status": "success",
         "message": "Chat deleted"
     }
+
+
 
 
 
