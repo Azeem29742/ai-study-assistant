@@ -5,9 +5,9 @@ description = ""
 authors = [
     {name = "Azeem Ur Rehman",email = "rehmanazeem942@gmail.com"}
 ]
-requires-python = ">=3.11"
+requires-python = "==3.11.*"
 dependencies = [
-    "fastapi (>=0.141.1,<0.142.0)",
+    "fastapi[standard] (>=0.141.1,<0.142.0)",
     "uvicorn[standard] (>=0.52.4,<0.53.0)",
     "python-multipart (>=0.0.32,<0.0.33)",
     "pypdf (>=6.18.0,<7.0.0)",
