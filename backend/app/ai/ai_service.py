@@ -1099,7 +1099,7 @@ def search_documents(
 
     print(f"DEBUG Chroma distances for query {query!r}: {distances}")
 
-    MAX_DISTANCE = 0.75
+    MAX_DISTANCE = 0.90
 
     matches = []
 
