@@ -124,6 +124,15 @@ def get_chat_db():
         )
         connection.commit()
 
+    if "chat_id" not in existing_columns:
+        connection.execute(
+            """
+            ALTER TABLE chat_sessions
+            ADD COLUMN chat_id TEXT
+            """
+        )
+        connection.commit()
+
     # --------------------------------------------------------
     # Backward compatibility
     #
@@ -1608,5 +1617,4 @@ def delete_chat_session(chat_id: str) -> dict:
         "status": "success",
         "message": "Chat deleted"
     }
-
 
