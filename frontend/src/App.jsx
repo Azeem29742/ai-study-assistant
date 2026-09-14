@@ -70,6 +70,7 @@ const [deleteModal, setDeleteModal] = useState(null)
 
   const [uploading, setUploading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState(null)
+  const [pendingDocument, setPendingDocument] = useState(null)
   const fileInputRef = useRef(null)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
@@ -91,9 +92,24 @@ const [deleteModal, setDeleteModal] = useState(null)
       const url = `${API_URL}/ai/chat-history?chat_id=${encodeURIComponent(id)}`
       const res = await fetch(url, { cache: 'no-store' })
       const data = await res.json()
-      setMessages(data.messages || [])
+
+      if (data.status === 'success') {
+        setMessages(data.messages || [])
+        return true
+      }
+
+      if (data.message === 'Chat not found') {
+        localStorage.removeItem('study_assistant_active_chat')
+        localStorage.removeItem('study_assistant_active_session')
+        setSessionId(null)
+        setSelectedSession(null)
+        setMessages([])
+      }
+
+      return false
     } catch (err) {
       console.error('Failed to load chat history:', err)
+      return false
     } finally {
       setHistoryLoaded(true)
     }
@@ -442,7 +458,10 @@ const sendMessage = async () => {
       }
     }
 
-    setMessages((prev) => [...prev, { role: 'user', content: question, created_at: null }])
+    const attachedDocument = pendingDocument
+
+    setMessages((prev) => [...prev, { role: 'user', content: question, created_at: null, attachment: attachedDocument }])
+    setPendingDocument(null)
     setLoading(true)
 
     try {
@@ -496,12 +515,11 @@ const sendMessage = async () => {
       const data = await res.json()
 
       if (data.status === 'success') {
-        setUploadStatus({
-          type: 'success',
+        setPendingDocument({
           filename: data.filename,
-          fileType: data.filename.toLowerCase().endsWith('.pdf') ? 'PDF' : 'TXT',
-          text: `Uploaded "${data.filename}" - ${data.chunks_stored} chunks indexed.`
+          fileType: data.filename.toLowerCase().endsWith('.pdf') ? 'PDF' : 'TXT'
         })
+        setUploadStatus(null)
       } else {
         setUploadStatus({
           type: 'error',
@@ -590,7 +608,7 @@ const sendMessage = async () => {
   )
 
   const inputBar = (
-    <div className={`chat-input ${uploadStatus?.type === 'success' ? 'has-document' : ''}`}>
+    <div className={`chat-input ${pendingDocument ? 'has-document' : ''}`}>
       <input
         type="file"
         ref={fileInputRef}
@@ -599,19 +617,19 @@ const sendMessage = async () => {
         onChange={handleFileChange}
       />
 
-      {uploadStatus?.type === 'success' && uploadStatus.filename && (
+      {pendingDocument && (
         <div className="uploaded-document">
           <div className="document-icon">
-            {uploadStatus.fileType === 'PDF' ? 'PDF' : 'TXT'}
+            {pendingDocument.fileType}
           </div>
           <div className="document-info">
-            <div className="document-name">{uploadStatus.filename}</div>
-            <div className="document-type">{uploadStatus.fileType}</div>
+            <div className="document-name">{pendingDocument.filename}</div>
+            <div className="document-type">{pendingDocument.fileType}</div>
           </div>
           <button
             type="button"
             className="remove-document-btn"
-            onClick={() => setUploadStatus(null)}
+            onClick={() => setPendingDocument(null)}
             aria-label="Remove uploaded document"
             title="Remove document"
           >
@@ -885,6 +903,17 @@ const sendMessage = async () => {
                     ) : (
                       <>
                         <div className="user-message-wrapper">
+  {msg.attachment && (
+    <div className="uploaded-document message-attachment">
+      <div className="document-icon">
+        {msg.attachment.fileType}
+      </div>
+      <div className="document-info">
+        <div className="document-name">{msg.attachment.filename}</div>
+        <div className="document-type">{msg.attachment.fileType}</div>
+      </div>
+    </div>
+  )}
                           <div className="user-message-bubble">
                             <strong>You:</strong>
                             <span className="user-message-content">{msg.content}</span>
@@ -965,18 +994,4 @@ const sendMessage = async () => {
 }
 
 export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
