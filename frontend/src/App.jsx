@@ -59,6 +59,7 @@ function App() {
 const [deleteModal, setDeleteModal] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [newSessionName, setNewSessionName] = useState('')
   const [showNewSessionInput, setShowNewSessionInput] = useState(false)
 
@@ -665,7 +666,7 @@ const sendMessage = async () => {
 
   return (
     <div className="app-layout">
-      <aside className={`sidebar ${sidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
+      <aside className={`sidebar ${sidebarExpanded ? 'sidebar-expanded' : 'sidebar-collapsed'} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''} `}>
           <div className="sidebar-header">
             <div className="sidebar-title">Study Assistant</div>
 
@@ -857,7 +858,7 @@ const sendMessage = async () => {
         </ul>
       </aside>
 
-      <div className="main-panel">
+      <div className="main-panel">`r`n        <button type="button" className="mobile-menu-btn" onClick={() => setMobileSidebarOpen(true)} aria-label="Open sidebar" title="Open sidebar">?</button>
         {isLanding ? (
           <div className="landing">
             <h1 className="landing-title">What would you like to study?</h1>
@@ -994,4 +995,7 @@ const sendMessage = async () => {
 }
 
 export default App
+
+
+
 
