@@ -1097,6 +1097,8 @@ def search_documents(
         [[]]
     )[0]
 
+    print(f"DEBUG Chroma distances for query {query!r}: {distances}")
+
     MAX_DISTANCE = 0.75
 
     matches = []
@@ -1617,4 +1619,5 @@ def delete_chat_session(chat_id: str) -> dict:
         "status": "success",
         "message": "Chat deleted"
     }
+
 
