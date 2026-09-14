@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+﻿import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 function SidebarScrollText({ text, className }) {
@@ -273,6 +273,10 @@ const toggleSession = (name) => {
     }))
   }
     const toggleSidebar = () => {
+      if (window.innerWidth <= 768) {
+        setMobileSidebarOpen(false)
+        return
+      }
       setSidebarExpanded((prev) => !prev)
     }
 
@@ -858,7 +862,8 @@ const sendMessage = async () => {
         </ul>
       </aside>
 
-      <div className="main-panel">`r`n        <button type="button" className="mobile-menu-btn" onClick={() => setMobileSidebarOpen(true)} aria-label="Open sidebar" title="Open sidebar">?</button>
+      <div className="main-panel">
+        <button type="button" className="mobile-menu-btn" onClick={() => setMobileSidebarOpen(prev => !prev)} aria-label="Open sidebar" title="Open sidebar">{mobileSidebarOpen ? String.fromCharCode(171) : String.fromCharCode(187)}</button>
         {isLanding ? (
           <div className="landing">
             <h1 className="landing-title">What would you like to study?</h1>
@@ -995,6 +1000,9 @@ const sendMessage = async () => {
 }
 
 export default App
+
+
+
 
 
 

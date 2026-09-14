@@ -2152,3 +2152,81 @@ body {
     display: none !important;
   }
 }
+
+/* ==========================================================
+   MOBILE FINAL POLISH
+========================================================== */
+
+@media (max-width: 768px) {
+  .landing {
+    min-height: 100dvh !important;
+    height: 100dvh !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+
+  .landing-input-wrap {
+    position: fixed !important;
+    left: 0.75rem !important;
+    right: 0.75rem !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
+    width: auto !important;
+    max-width: none !important;
+    z-index: 500 !important;
+  }
+
+  .landing-input-wrap .chat-input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-input-wrap {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    bottom: max(0.5rem, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* ==========================================================
+   MOBILE KEYBOARD-SAFE INPUT
+========================================================== */
+
+@media (max-width: 768px) {
+  .landing {
+    min-height: 100svh !important;
+    height: 100svh !important;
+    padding-bottom: 6rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .landing-input-wrap {
+    position: fixed !important;
+    left: 0.75rem !important;
+    right: 0.75rem !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    z-index: 800 !important;
+  }
+
+  .landing-input-wrap .chat-input {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing {
+    padding-bottom: 6rem !important;
+  }
+
+  .landing-input-wrap {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+  }
+}
