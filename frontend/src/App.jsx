@@ -674,14 +674,7 @@ const sendMessage = async () => {
           <div className="sidebar-header">
             <div className="sidebar-title">Study Assistant</div>
 
-            <button
-              type="button"
-              className="sidebar-toggle-btn"
-              onClick={toggleSidebar}
-              title={sidebarExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
-            >
-              {sidebarExpanded ? String.fromCharCode(171) : String.fromCharCode(187)}
-            </button>
+
           </div>
 
           <div className="sidebar-top-row">
@@ -861,9 +854,26 @@ const sendMessage = async () => {
           )}
         </ul>
       </aside>
+      
+<button
+  type="button"
+  className="sidebar-toggle-btn"
+  onClick={toggleSidebar}
+  title={sidebarExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+>
+  {sidebarExpanded ? String.fromCharCode(171) : String.fromCharCode(187)}
+</button>
 
       <div className="main-panel">
-        <button type="button" className="mobile-menu-btn" onClick={() => setMobileSidebarOpen(prev => !prev)} aria-label="Open sidebar" title="Open sidebar">{mobileSidebarOpen ? String.fromCharCode(171) : String.fromCharCode(187)}</button>
+        <button
+          type="button"
+          className="mobile-menu-btn"
+          onClick={() => setMobileSidebarOpen(prev => !prev)}
+          aria-label="Open sidebar"
+          title="Open sidebar"
+        >
+          {mobileSidebarOpen ? String.fromCharCode(171) : String.fromCharCode(187)}
+        </button>
         {isLanding ? (
           <div className="landing">
             <h1 className="landing-title">What would you like to study?</h1>
@@ -901,7 +911,7 @@ const sendMessage = async () => {
               {messages.map((msg, i) => (
                 <div key={i} className={`message ${msg.role}`}>
                   <div>
-                    {msg.role === 'assistant' && <strong>Assistant:</strong>}
+                    
                     {msg.role === 'assistant' ? (
                       <div className="markdown-content">
                         <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -921,7 +931,7 @@ const sendMessage = async () => {
     </div>
   )}
                           <div className="user-message-bubble">
-                            <strong>You:</strong>
+                            
                             <span className="user-message-content">{msg.content}</span>
                           </div>
 
@@ -1000,6 +1010,12 @@ const sendMessage = async () => {
 }
 
 export default App
+
+
+
+
+
+
 
 
 
