@@ -74,7 +74,6 @@ const [deleteModal, setDeleteModal] = useState(null)
   const [pendingDocument, setPendingDocument] = useState(null)
   const fileInputRef = useRef(null)
   const chatWindowRef = useRef(null)
-  const inputRef = useRef(null)
 
   const loadSessions = useCallback(async () => {
     try {
@@ -229,7 +228,14 @@ const [deleteModal, setDeleteModal] = useState(null)
     }
   }, [searchTerm, sessions])
 
+  const closeMobileSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setMobileSidebarOpen(false)
+    }
+  }
+
   const startNewChat = (parentSessionId = null) => {
+    closeMobileSidebar()
     localStorage.removeItem('study_assistant_active_chat')
 
     if (parentSessionId) {
@@ -252,8 +258,6 @@ const [deleteModal, setDeleteModal] = useState(null)
     } else {
       setSelectedSession(null)
     }
-
-    setTimeout(() => inputRef.current?.focus(), 0)
   }
 
   const loadSessionChats = useCallback(async (id) => {
@@ -276,6 +280,7 @@ const [deleteModal, setDeleteModal] = useState(null)
   }, [])
 
   const switchSession = (chatId, parentSessionId) => {
+  closeMobileSidebar()
   if (chatId === sessionId) return
 
   setSessionId(chatId)
@@ -298,13 +303,13 @@ const toggleSession = (name) => {
       [name]: !prev[name]
     }))
   }
-    const toggleSidebar = () => {
-      if (window.innerWidth <= 768) {
-        setMobileSidebarOpen(false)
-        return
-      }
-      setSidebarExpanded((prev) => !prev)
+  const toggleSidebar = () => {
+    if (window.innerWidth <= 768) {
+      closeMobileSidebar()
+      return
     }
+    setSidebarExpanded((prev) => !prev)
+  }
 
   const createSession = async () => {
   const name = newSessionName.trim()
@@ -333,7 +338,6 @@ const toggleSession = (name) => {
       setHistoryLoaded(true)
       setUploadStatus(null)
 
-      setTimeout(() => inputRef.current?.focus(), 0)
     } else {
       alert(data.message || 'Could not create session')
     }
@@ -432,7 +436,6 @@ const confirmDelete = async () => {
           setMessages([])
           setHistoryLoaded(true)
           setUploadStatus(null)
-          setTimeout(() => inputRef.current?.focus(), 0)
         }
       } else {
         alert(data.message || 'Could not delete chat')
@@ -673,13 +676,11 @@ const sendMessage = async () => {
         {attachButton}
 
         <input
-          ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask anything about your documents..."
-          autoFocus
         />
 
         <button
@@ -750,6 +751,7 @@ const sendMessage = async () => {
                   chat.chat_id === sessionId ? 'active-chat' : ''
                 }`}
                 onClick={() => {
+                  closeMobileSidebar()
                   setSessionId(chat.chat_id)
                   setSelectedSession(null)
                   localStorage.setItem(
@@ -1035,10 +1037,6 @@ const sendMessage = async () => {
 }
 
 export default App
-
-
-
-
 
 
 
