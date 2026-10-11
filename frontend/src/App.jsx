@@ -73,7 +73,7 @@ const [deleteModal, setDeleteModal] = useState(null)
   const [uploadStatus, setUploadStatus] = useState(null)
   const [pendingDocument, setPendingDocument] = useState(null)
   const fileInputRef = useRef(null)
-  const bottomRef = useRef(null)
+  const chatWindowRef = useRef(null)
   const inputRef = useRef(null)
 
   const loadSessions = useCallback(async () => {
@@ -154,8 +154,34 @@ const [deleteModal, setDeleteModal] = useState(null)
   }, [loadHistory])
 
   useEffect(() => {
+    const viewport = window.visualViewport
+    if (!viewport) return
+
+    const updateAppHeight = () => {
+      if (window.innerWidth <= 768) {
+        document.documentElement.style.setProperty('--app-height', `${viewport.height}px`)
+      } else {
+        document.documentElement.style.removeProperty('--app-height')
+      }
+    }
+
+    updateAppHeight()
+    viewport.addEventListener('resize', updateAppHeight)
+    window.addEventListener('resize', updateAppHeight)
+
+    return () => {
+      viewport.removeEventListener('resize', updateAppHeight)
+      window.removeEventListener('resize', updateAppHeight)
+      document.documentElement.style.removeProperty('--app-height')
+    }
+  }, [])
+
+  useEffect(() => {
     if (messages.length > 0 || loading) {
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+      const chatWindow = chatWindowRef.current
+      if (chatWindow) {
+        chatWindow.scrollTop = chatWindow.scrollHeight
+      }
     }
   }, [messages, loading])
   useEffect(() => {
@@ -867,10 +893,10 @@ const sendMessage = async () => {
       <div className="main-panel">
         <button
           type="button"
-          className="mobile-menu-btn"
+          className={`mobile-menu-btn ${mobileSidebarOpen ? 'mobile-menu-open' : ''}`}
           onClick={() => setMobileSidebarOpen(prev => !prev)}
-          aria-label="Open sidebar"
-          title="Open sidebar"
+          aria-label={mobileSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+          title={mobileSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
         >
           {mobileSidebarOpen ? String.fromCharCode(171) : String.fromCharCode(187)}
         </button>
@@ -904,7 +930,7 @@ const sendMessage = async () => {
               </div>
             )}
 
-            <div className="chat-window">
+            <div className="chat-window" ref={chatWindowRef}>
               {historyLoaded && messages.length === 0 && (
                 <p className="empty-state">Ask a question about your uploaded documents.</p>
               )}
@@ -962,7 +988,6 @@ const sendMessage = async () => {
                   <span className="dot-flashing"></span>
                 </div>
               )}
-              <div ref={bottomRef} />
             </div>
 
             {inputBar}
@@ -1010,7 +1035,6 @@ const sendMessage = async () => {
 }
 
 export default App
-
 
 
 

@@ -375,7 +375,7 @@ body {
   border-radius: 22px;
   line-height: 1.55;
   font-size: 0.95rem;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .message.assistant {
@@ -2155,7 +2155,7 @@ body {
     width: fit-content;
     max-width: 100%;
     box-sizing: border-box;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     word-break: normal;
     white-space: normal;
     padding: 0.65rem 0.85rem;
@@ -2577,9 +2577,9 @@ body {
 
   .landing-title {
     max-width: 100%;
-    padding-top: 12vh;
+    padding-top: 0;
     font-size: clamp(1.5rem, 6vw, 2rem);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .landing-input-wrap,
@@ -2587,5 +2587,157 @@ body {
     width: 100%;
     max-width: none;
     min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout,
+  .main-panel,
+  .main-panel > .landing,
+  .main-panel > .chat-container {
+    height: var(--app-height, 100dvh) !important;
+    min-height: 0 !important;
+  }
+
+  .main-panel > .landing,
+  .main-panel > .chat-container {
+    flex: 1 1 auto !important;
+  }
+
+  .main-panel > .landing {
+    justify-content: flex-start;
+    padding-top: calc(3.5rem + env(safe-area-inset-top));
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .landing-title {
+    margin: auto 0 1rem;
+    padding: 0;
+  }
+
+  .landing-input-wrap {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+  }
+
+  .main-panel > .chat-container {
+    padding-top: calc(3.5rem + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .sidebar,
+  .sidebar.sidebar-collapsed {
+    height: var(--app-height, 100dvh);
+    padding: calc(0.75rem + env(safe-area-inset-top)) 0.75rem 0.75rem !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .sidebar-header {
+    padding-right: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .sidebar.mobile-sidebar-open.sidebar-collapsed .sidebar-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    min-height: 36px;
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar.mobile-sidebar-open.sidebar-collapsed .sidebar-title {
+    display: block !important;
+  }
+
+  .session-list {
+    min-height: 0;
+  }
+
+  .mobile-menu-btn {
+    position: fixed;
+    top: calc(0.75rem + env(safe-area-inset-top));
+    left: 0.75rem;
+    z-index: 1100;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .mobile-menu-btn:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-menu-btn.mobile-menu-open {
+    left: calc(min(280px, 85vw) - 2.5rem);
+  }
+
+  .main-panel > .chat-container .message > div:first-child,
+  .main-panel > .chat-container .markdown-content {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .main-panel > .chat-container .message.user {
+    min-width: 0;
+  }
+
+  .main-panel > .chat-container .message.user > div:first-child {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  .main-panel > .chat-container .user-message-wrapper {
+    max-width: 90% !important;
+    min-width: 0;
+  }
+
+  .main-panel > .chat-container .user-message-bubble {
+    max-width: 100% !important;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .user-message-content,
+  .markdown-content p,
+  .markdown-content li,
+  .markdown-content blockquote,
+  .markdown-content a {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .markdown-content code {
+    display: inline;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .markdown-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .markdown-content pre code {
+    display: block;
+    max-width: none;
+    overflow-wrap: normal;
+    white-space: pre;
   }
 }
